@@ -4,6 +4,8 @@ const lists =document.querySelectorAll(".list");
 const addTask = document.getElementById("add-btn")
 const taskStr = document.getElementById("taskStr")
 const forms = document.getElementById("formid")
+
+const deleteBtn = document.getElementById("delete-btn")
 let i =1;
 
 
@@ -22,6 +24,7 @@ for(const list of lists){
     list.addEventListener("drop",dragDrop)
 }
 
+    
 function dragStart(e){
 
 
@@ -86,5 +89,38 @@ function appendToDo(event){
     i +=1;
 
     
+
+}
+
+// adding trash button 
+ deleteBtn.addEventListener("dragleave",dragLeaveBtn)
+deleteBtn.addEventListener("dragover",dragOverBtn)
+deleteBtn.addEventListener("dragenter",dragEnterBtn)
+deleteBtn.addEventListener("drop",dragDropBtn)
+
+
+function dragOverBtn(e){
+    e.preventDefault()
+}
+
+function dragEnterBtn(){
+    deleteBtn.classList.add("highlight");
+    console.log("drag entered")
+}
+function dragLeaveBtn(){
+    deleteBtn.classList.remove("highlight");
+    console.log("drag left")
+}
+
+function dragDropBtn(e){
+    const id = e.dataTransfer.getData("text/plain");
+    console.log(id)
+    const delTask = document.getElementById(id);
+    console.log(delTask)
+
+    if(delTask){
+        delTask.remove()
+    }
+    deleteBtn.classList.remove("highlight")
 
 }
